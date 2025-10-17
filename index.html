@@ -291,120 +291,167 @@
     <script>
         // Dados extraídos do arquivo Excel atualizado com descrições completas
         const productsData = [
-            { codigo: '00030558', descricao: 'CLORIDRATO DE METFORMINA 850MG COM 30 CPR', volume: 776.79, lote: 'AAA9330101', validade: '2025-09-26 00:00:00' },
-            { codigo: '00030558', descricao: 'CLORIDRATO DE METFORMINA 850MG COM 30 CPR', volume: 713.27, lote: 'AAA9330101', validade: '2025-09-26 00:00:00' },
-            { codigo: '00030558', descricao: 'CLORIDRATO DE METFORMINA 850MG COM 30 CPR', volume: 703.5, lote: 'AAA9330101', validade: '2025-09-26 00:00:00' },
-            { codigo: '00030558', descricao: 'CLORIDRATO DE METFORMINA 850MG COM 30 CPR', volume: 737.52, lote: 'AAA9330101', validade: '2025-09-26 00:00:00' },
-            { codigo: '00030558', descricao: 'CLORIDRATO DE METFORMINA 850MG COM 30 CPR', volume: 754.71, lote: 'AAA9330101', validade: '2025-09-26 00:00:00' },
-            { codigo: '00030558', descricao: 'CLORIDRATO DE METFORMINA 850MG COM 30 CPR', volume: 621.47, lote: 'AAA9330101', validade: '2025-09-26 00:00:00' },
-            { codigo: '00030558', descricao: 'CLORIDRATO DE METFORMINA 850MG COM 30 CPR', volume: 539.74, lote: 'AAA9330101', validade: '2025-09-26 00:00:00' },
-            { codigo: '00030558', descricao: 'CLORIDRATO DE METFORMINA 850MG COM 30 CPR', volume: 531.49, lote: 'AAA9330101', validade: '2025-09-26 00:00:00' },
-            { codigo: '00030558', descricao: 'CLORIDRATO DE METFORMINA 850MG COM 30 CPR', volume: 548.64, lote: 'AAA9330101', validade: '2025-09-26 00:00:00' },
-            { codigo: '00030558', descricao: 'CLORIDRATO DE METFORMINA 850MG COM 30 CPR', volume: 540.73, lote: 'AAA9330101', validade: '2025-09-26 00:00:00' },
-            { codigo: '00030419', descricao: 'ATORVASTATINA 20MG COM 30 CPR', volume: 530.89, lote: 'AAACSE0101', validade: '2025-06-26 00:00:00' },
-            { codigo: '00030419', descricao: 'ATORVASTATINA 20MG COM 30 CPR', volume: 530.89, lote: 'AAACSE0101', validade: '2025-06-27 00:00:00' },
-            { codigo: '00030419', descricao: 'ATORVASTATINA 20MG COM 30 CPR', volume: 548.09, lote: 'AAABOT0101', validade: '2025-05-21 00:00:00' },
-            { codigo: '00030202', descricao: 'LOSARTANA 50MG COM 30 CPR', volume: 516.48, lote: 'AAABR30101', validade: '2025-05-24 00:00:00' },
-            { codigo: '00030202', descricao: 'LOSARTANA 50MG COM 30 CPR', volume: 453.6, lote: 'AAABR30101', validade: '2025-05-24 00:00:00' },
-            { codigo: '00030202', descricao: 'LOSARTANA 50MG COM 30 CPR', volume: 857.92, lote: 'AAACS60101', validade: '2025-06-26 00:00:00' },
-            { codigo: '00030202', descricao: 'LOSARTANA 50MG COM 30 CPR', volume: 296.5, lote: 'AAACS60101', validade: '2025-06-26 00:00:00' },
-            { codigo: '00030202', descricao: 'LOSARTANA 50MG COM 30 CPR', volume: 542.02, lote: 'AAACS60101', validade: '2025-06-26 00:00:00' },
-            { codigo: '00030202', descricao: 'LOSARTANA 50MG COM 30 CPR', volume: 555.88, lote: 'AAACS60101', validade: '2025-06-26 00:00:00' },
-            { codigo: '00030202', descricao: 'LOSARTANA 50MG COM 30 CPR', volume: 535.87, lote: 'AAACS60101', validade: '2025-06-26 00:00:00' },
-            { codigo: '00030202', descricao: 'LOSARTANA 50MG COM 30 CPR', volume: 560.43, lote: 'AAACS60101', validade: '2025-06-26 00:00:00' },
-            { codigo: '00030439', descricao: 'OMEPRAZOL 20MG COM 28 CPS', volume: 590.82, lote: 'AAAGBU0101', validade: '2026-04-17 00:00:00' },
-            { codigo: '00030439', descricao: 'OMEPRAZOL 20MG COM 28 CPS', volume: 542.6, lote: 'AAAGBU0101', validade: '2026-04-17 00:00:00' },
-            { codigo: '00030440', descricao: 'SINVASTATINA 20MG COM 30 CPR', volume: 514.73, lote: 'AAAGCQ0101', validade: '2025-10-30 00:00:00' },
-            { codigo: '00030440', descricao: 'SINVASTATINA 20MG COM 30 CPR', volume: 484.87, lote: 'AAAGCQ0101', validade: '2025-10-30 00:00:00' },
-            { codigo: '00030510', descricao: 'HIDROCLOROTIAZIDA 25MG COM 30 CPR', volume: 544.9, lote: 'AA97790101', validade: '2025-08-29 00:00:00' },
-            { codigo: '00030510', descricao: 'HIDROCLOROTIAZIDA 25MG COM 30 CPR', volume: 553.4, lote: 'AA97790101', validade: '2025-08-29 00:00:00' },
-            { codigo: '00030510', descricao: 'HIDROCLOROTIAZIDA 25MG COM 30 CPR', volume: 523.1, lote: 'AAABOP0101', validade: '2025-11-16 00:00:00' },
-            { codigo: '00030710', descricao: 'CLORIDRATO DE METFORMINA 500MG COM 30 CPR', volume: 357.3, lote: 'AA98650101', validade: '2025-09-06 00:00:00' },
-            { codigo: '00030710', descricao: 'CLORIDRATO DE METFORMINA 500MG COM 30 CPR', volume: 544.65, lote: 'AAA0360101', validade: '2025-11-17 00:00:00' },
-            { codigo: '00030710', descricao: 'CLORIDRATO DE METFORMINA 500MG COM 30 CPR', volume: 498.7, lote: 'AAA0360101', validade: '2025-11-17 00:00:00' },
-            { codigo: '00030710', descricao: 'CLORIDRATO DE METFORMINA 500MG COM 30 CPR', volume: 547.9, lote: 'AAACSD0101', validade: '2025-12-23 00:00:00' },
-            { codigo: '00030710', descricao: 'CLORIDRATO DE METFORMINA 500MG COM 30 CPR', volume: 432.6, lote: 'AAACSD0101', validade: '2025-12-24 00:00:00' },
-            { codigo: '00030709', descricao: 'GLICLAZIDA 60MG COM 30 CPR', volume: 505.16, lote: 'AAA2430101', validade: '2025-09-13 00:00:00' },
-            { codigo: '00030212', descricao: 'CAPTOPRIL 25MG COM 30 CPR', volume: 538.3, lote: 'AA97790101', validade: '2025-08-29 00:00:00' },
-            { codigo: '00030212', descricao: 'CAPTOPRIL 25MG COM 30 CPR', volume: 558.97, lote: 'AA97790101', validade: '2025-08-29 00:00:00' },
-            { codigo: '00030218', descricao: 'ENALAPRIL 10MG COM 30 CPR', volume: 608.3, lote: 'AA90740101', validade: '2025-08-10 00:00:00' },
-            { codigo: '00030218', descricao: 'ENALAPRIL 10MG COM 30 CPR', volume: 555.4, lote: 'AAACS50101', validade: '2025-12-25 00:00:00' },
-            { codigo: '00030218', descricao: 'ENALAPRIL 10MG COM 30 CPR', volume: 549.15, lote: 'AAABOG0101', validade: '2025-11-16 00:00:00' },
-            { codigo: '00030530', descricao: 'CLOPIDOGREL 75MG COM 28 CPR', volume: 547.55, lote: 'AAACT80101', validade: '2025-12-25 00:00:00' },
-            { codigo: '00030530', descricao: 'CLOPIDOGREL 75MG COM 28 CPR', volume: 456.8, lote: 'AAACT80101', validade: '2025-12-25 00:00:00' },
-            { codigo: '00030530', descricao: 'CLOPIDOGREL 75MG COM 28 CPR', volume: 543.15, lote: 'AAABNT0101', validade: '2025-11-16 00:00:00' },
-            { codigo: '00030211', descricao: 'PROPRANOLOL 40MG COM 30 CPR', volume: 413.25, lote: 'AAACOZ0101', validade: '2025-12-18 00:00:00' },
-            { codigo: '00030211', descricao: 'PROPRANOLOL 40MG COM 30 CPR', volume: 558.6, lote: 'AAACOZ0101', validade: '2025-12-18 00:00:00' },
-            { codigo: '00030211', descricao: 'PROPRANOLOL 40MG COM 30 CPR', volume: 538.65, lote: 'AAACOZ0101', validade: '2025-12-18 00:00:00' },
-            { codigo: '00030211', descricao: 'PROPRANOLOL 40MG COM 30 CPR', volume: 509.6, lote: 'AAABM20101', validade: '2025-11-15 00:00:00' },
-            { codigo: '00030559', descricao: 'SIMETICONA 75MG COM 20 CPR', volume: 517.41, lote: 'AAA1280101', validade: '2025-06-08 00:00:00' },
-            { codigo: '00030559', descricao: 'SIMETICONA 75MG COM 20 CPR', volume: 487.46, lote: 'AAA1280101', validade: '2025-06-08 00:00:00' },
-            { codigo: '00030226', descricao: 'DIPIRONA 500MG COM 10 CPR', volume: 547.55, lote: 'AAACS70101', validade: '2025-12-23 00:00:00' },
-            { codigo: '00030226', descricao: 'DIPIRONA 500MG COM 10 CPR', volume: 538.83, lote: 'AAACS70101', validade: '2025-12-23 00:00:00' },
-            { codigo: '00030226', descricao: 'DIPIRONA 500MG COM 10 CPR', volume: 534, lote: 'AAA1270101', validade: '2025-11-20 00:00:00' },
-            { codigo: '00030225', descricao: 'PARACETAMOL 750MG COM 20 CPR', volume: 544.76, lote: 'AAABQ70101', validade: '2025-11-20 00:00:00' },
-            { codigo: '00030225', descricao: 'PARACETAMOL 750MG COM 20 CPR', volume: 550.12, lote: 'AAABQ70101', validade: '2025-11-20 00:00:00' },
-            { codigo: '00030557', descricao: 'IBUPROFENO 400MG COM 10 CPR', volume: 564.54, lote: 'AAABXJ0101', validade: '2025-11-24 00:00:00' },
-            { codigo: '00030783', descricao: 'DICLOFENACO 50MG COM 10 CPR', volume: 417.18, lote: 'AAAILC0101', validade: '2025-06-23 00:00:00' },
-            { codigo: '00030784', descricao: 'CETOCONAZOL 200MG COM 10 CPR', volume: 557.39, lote: 'AAAILA0101', validade: '2025-06-23 00:00:00' },
-            { codigo: '00030448', descricao: 'FLUCONAZOL 150MG COM 1 CPS', volume: 610.95, lote: 'AAAGH20101', validade: '2026-04-23 00:00:00' },
-            { codigo: '00030438', descricao: 'AMOXICILINA 500MG COM 21 CPR', volume: 525.2, lote: 'AAA1300101', validade: '2025-06-08 00:00:00' },
-            { codigo: '00030712', descricao: 'AZITROMICINA 500MG COM 3 CPR', volume: 540.92, lote: 'AAAFT30101', validade: '2026-04-03 00:00:00' },
-            { codigo: '00030712', descricao: 'AZITROMICINA 500MG COM 3 CPR', volume: 540.62, lote: 'AAAFT90101', validade: '2026-03-13 00:00:00' },
-            { codigo: '00030712', descricao: 'AZITROMICINA 500MG COM 3 CPR', volume: 575.44, lote: 'AAAFT90101', validade: '2026-03-13 00:00:00' },
-            { codigo: '00030712', descricao: 'AZITROMICINA 500MG COM 3 CPR', volume: 544.54, lote: 'AAAFT90101', validade: '2026-03-13 00:00:00' },
-            { codigo: '00030712', descricao: 'AZITROMICINA 500MG COM 3 CPR', volume: 540.45, lote: 'AAAFT90101', validade: '2026-03-13 00:00:00' },
-            { codigo: '00030712', descricao: 'AZITROMICINA 500MG COM 3 CPR', volume: 379.52, lote: 'AAAFT90101', validade: '2026-03-13 00:00:00' },
-            { codigo: '00030712', descricao: 'AZITROMICINA 500MG COM 3 CPR', volume: 308.94, lote: 'AAACP00101', validade: '2025-12-22 00:00:00' },
-            { codigo: '00030712', descricao: 'AZITROMICINA 500MG COM 3 CPR', volume: 552.85, lote: 'AAACP00101', validade: '2025-12-22 00:00:00' },
-            { codigo: '00030269', descricao: 'CIPROFLOXACINO 500MG COM 14 CPR', volume: 549.74, lote: 'AAAJE000101', validade: '2026-07-18 00:00:00' },
-            { codigo: '00030269', descricao: 'CIPROFLOXACINO 500MG COM 14 CPR', volume: 549.04, lote: 'AAAJE000101', validade: '2026-07-18 00:00:00' },
-            { codigo: '00030269', descricao: 'CIPROFLOXACINO 500MG COM 14 CPR', volume: 545.82, lote: 'AAAJE000101', validade: '2026-07-18 00:00:00' },
-            { codigo: '00030502', descricao: 'LEVOTIROXINA 100MCG COM 30 CPR', volume: 1001.52, lote: '627104', validade: '2026-09-11 00:00:00' },
-            { codigo: '00030502', descricao: 'LEVOTIROXINA 100MCG COM 30 CPR', volume: 1014.02, lote: '627104', validade: '' },
-            { codigo: '00030674', descricao: 'PREDNISONA 20MG COM 10 CPR', volume: 408.54, lote: '77868', validade: '2026-07-17 00:00:00' },
-            { codigo: '00030536', descricao: 'DEXAMETASONA 0,5MG COM 10 CPR', volume: 559.68, lote: 'AAABNX0101', validade: '2025-11-16 00:00:00' },
-            { codigo: '00030537', descricao: 'HIDROCORTISONA 20MG CREME 30G', volume: 629.35, lote: '593654', validade: '2026-04-26 00:00:00' },
-            { codigo: '00030537', descricao: 'HIDROCORTISONA 20MG CREME 30G', volume: 418.21, lote: 'AAABM10101', validade: '2025-11-15 00:00:00' },
-            { codigo: '00030539', descricao: 'BETAMETASONA CREME 0,1% 30G', volume: 574.19, lote: '595758', validade: '2026-04-30 00:00:00' },
-            { codigo: '00030539', descricao: 'BETAMETASONA CREME 0,1% 30G', volume: 459.86, lote: 'AAAC470101', validade: '2025-11-29 00:00:00' },
-            { codigo: '00030538', descricao: 'MOMETASONA CREME 0,1% 30G', volume: 513.15, lote: '595664', validade: '2026-04-29 00:00:00' },
-            { codigo: '00030538', descricao: 'MOMETASONA CREME 0,1% 30G', volume: 477.76, lote: '595664', validade: '2026-04-29 00:00:00' },
-            { codigo: '00030538', descricao: 'MOMETASONA CREME 0,1% 30G', volume: 398.12, lote: 'AAABOH0101', validade: '2026-11-17 00:00:00' },
-            { codigo: '00560071', descricao: 'INSULINA NPH 100UI/ML FR 10ML', volume: 600, lote: 'T-392', validade: '2027-02-05 00:00:00' },
-            { codigo: '00460001', descricao: 'SORO FISIOLOGICO 0,9% 500ML', volume: 1000, lote: '82504131', validade: '2025-12-25 00:00:00' },
-            { codigo: '00460001', descricao: 'SORO FISIOLOGICO 0,9% 500ML', volume: 1000, lote: '82504131', validade: '2025-12-25 00:00:00' },
-            { codigo: '00460001', descricao: 'SORO FISIOLOGICO 0,9% 500ML', volume: 1000, lote: '82504131', validade: '2025-12-25 00:00:00' },
-            { codigo: '00560206', descricao: 'GLICOSE 5% 500ML', volume: 1000, lote: '6123225', validade: '2027-08-01 00:00:00' },
-            { codigo: '00440001', descricao: 'ÁGUA DESTILADA 1000ML', volume: 360, lote: '18092025', validade: '2026-09-18 00:00:00' },
-            { codigo: '00420002', descricao: 'ALGODÃO HIDRÓFILO 500G', volume: 300, lote: '198', validade: '2026-07-17 00:00:00' },
-            { codigo: '00460017', descricao: 'GAZE ESTERIL 10X10CM 10UND', volume: 200, lote: '25090925', validade: '2026-10-03 00:00:00' },
-            { codigo: '00460011', descricao: 'LUVAS DESCARTÁVEIS TAM M 100UND', volume: 300, lote: '784007', validade: '2026-06-16 00:00:00' },
-            { codigo: '00460011', descricao: 'LUVAS DESCARTÁVEIS TAM M 100UND', volume: 300, lote: '793971', validade: '2026-09-02 00:00:00' },
-            { codigo: '00030696', descricao: 'MÁSCARA CIRÚRGICA DESCARTÁVEL 50UND', volume: 280, lote: '25080635', validade: '2026-08-12 00:00:00' },
-            { codigo: '00440007', descricao: 'AGULHA DESCARTÁVEL 25X7 100UND', volume: 60, lote: '8385', validade: '2025-11-24 00:00:00' },
-            { codigo: '00440005', descricao: 'SERINGA DESCARTÁVEL 10ML 100UND', volume: 40, lote: '8446', validade: '2025-12-24 00:00:00' },
-            { codigo: '00560081', descricao: 'TESTE RÁPIDO COVID-19 25UND', volume: 700, lote: '468125', validade: '2027-02-05 00:00:00' },
-            { codigo: '00560081', descricao: 'TESTE RÁPIDO COVID-19 25UND', volume: 600, lote: '468125', validade: '2027-02-05 00:00:00' },
-            { codigo: '00030021', descricao: 'TESTE RÁPIDO GLICEMIA 50UND', volume: 500, lote: '02000B222', validade: '2027-08-13 00:00:00' },
-            { codigo: '00030690', descricao: 'FITA REAGENTE URINA 100UND', volume: 258300, lote: '109/25', validade: '2027-09-30 00:00:00' },
-            { codigo: '00030025', descricao: 'TIRAS REAGENTES GLICOSE 50UND', volume: 84000, lote: '108/25', validade: '2027-08-31 00:00:00' },
-            { codigo: '00030148', descricao: 'TIRAS REAGENTES COLESTEROL 25UND', volume: 88200, lote: '109/25', validade: '2027-09-30 00:00:00' },
-            { codigo: '00030018', descricao: 'APARELHO MEDIDOR PRESSÃO DIGITAL', volume: 126000, lote: '111/24', validade: '2026-11-30 00:00:00' },
-            { codigo: '00030018', descricao: 'APARELHO MEDIDOR PRESSÃO DIGITAL', volume: 210000, lote: '108/25', validade: '2027-08-31 00:00:00' },
-            { codigo: '00030191', descricao: 'TERMÔMETRO DIGITAL CLÍNICO', volume: 123900, lote: '108/25', validade: '2027-08-31 00:00:00' },
-            { codigo: '00030691', descricao: 'OXÍMETRO DE DEDO PORTÁTIL', volume: 420000, lote: '209/25', validade: '2027-09-30 00:00:00' },
-            { codigo: '00030694', descricao: 'CURATIVO ADESIVO 10X6CM 10UND', volume: 100, lote: '24100361', validade: '2025-10-10 00:00:00' },
-            { codigo: '00030694', descricao: 'CURATIVO ADESIVO 10X6CM 10UND', volume: 640, lote: '24110603', validade: '2025-11-20 00:00:00' },
-            { codigo: '00030694', descricao: 'CURATIVO ADESIVO 10X6CM 10UND', volume: 60, lote: '24110603', validade: '2025-11-20 00:00:00' },
-            { codigo: '00030694', descricao: 'CURATIVO ADESIVO 10X6CM 10UND', volume: 540, lote: '24110604', validade: '2025-11-21 00:00:00' },
-            { codigo: '00030694', descricao: 'CURATIVO ADESIVO 10X6CM 10UND', volume: 580, lote: '24110604', validade: '2025-11-21 00:00:00' },
-            { codigo: '00030694', descricao: 'CURATIVO ADESIVO 10X6CM 10UND', volume: 20, lote: '24101861', validade: '2025-11-05 00:00:00' },
-            { codigo: '00560204', descricao: 'ESPARADRAPO 2,5CM X 4,5M', volume: 2080, lote: '230650', validade: '2025-11-20 00:00:00' },
-            { codigo: '00560204', descricao: 'ESPARADRAPO 2,5CM X 4,5M', volume: 1300, lote: '41992025', validade: '2025-11-20 00:00:00' },
-            { codigo: '00560204', descricao: 'ESPARADRAPO 2,5CM X 4,5M', volume: 260, lote: '41992025', validade: '2025-11-20 00:00:00' },
-            { codigo: '00560204', descricao: 'ESPARADRAPO 2,5CM X 4,5M', volume: 520, lote: '41992025', validade: '2025-11-20 00:00:00' }
-        ];
+    { codigo: '00030558', descricao: 'FILME MAC SEMOLA EMEGE 500G ESPAGUETE', volume: 776.79, lote: 'AAA9330101', validade: '26/09/2025' },
+    { codigo: '00030558', descricao: 'FILME MAC SEMOLA EMEGE 500G ESPAGUETE', volume: 713.27, lote: 'AAA9330101', validade: '26/09/2025' },
+    { codigo: '00030558', descricao: 'FILME MAC SEMOLA EMEGE 500G ESPAGUETE', volume: 703.5, lote: 'AAA9330101', validade: '26/09/2025' },
+    { codigo: '00030558', descricao: 'FILME MAC SEMOLA EMEGE 500G ESPAGUETE', volume: 737.52, lote: 'AAA9330101', validade: '26/09/2025' },
+    { codigo: '00030558', descricao: 'FILME MAC SEMOLA EMEGE 500G ESPAGUETE', volume: 754.71, lote: 'AAA9330101', validade: '26/09/2025' },
+    { codigo: '00030558', descricao: 'FILME MAC SEMOLA EMEGE 500G ESPAGUETE', volume: 621.47, lote: 'AAA9330101', validade: '26/09/2025' },
+    { codigo: '00030558', descricao: 'FILME MAC SEMOLA EMEGE 500G ESPAGUETE', volume: 539.74, lote: 'AAA9330101', validade: '26/09/2025' },
+    { codigo: '00030558', descricao: 'FILME MAC SEMOLA EMEGE 500G ESPAGUETE', volume: 531.49, lote: 'AAA9330101', validade: '26/09/2025' },
+    { codigo: '00030558', descricao: 'FILME MAC SEMOLA EMEGE 500G ESPAGUETE', volume: 548.64, lote: 'AAA9330101', validade: '26/09/2025' },
+    { codigo: '00030558', descricao: 'FILME MAC SEMOLA EMEGE 500G ESPAGUETE', volume: 540.73, lote: 'AAA9330101', validade: '26/09/2025' },
+    
+    { codigo: '00030419', descricao: 'FILME BISC ROSQUINHA EMEGE 300GR COCO', volume: 530.89, lote: 'AAACSE0101', validade: '26/06/2025' },
+    { codigo: '00030419', descricao: 'FILME BISC ROSQUINHA EMEGE 300GR COCO', volume: 530.89, lote: 'AAACSE0101', validade: '27/06/2025' },
+    { codigo: '00030419', descricao: 'FILME BISC ROSQUINHA EMEGE 300GR COCO', volume: 548.09, lote: 'AAABOT0101', validade: '21/05/2025' },
+    
+    { codigo: '00030202', descricao: 'FILME BISC. ROSQUINHA COCO EMEGE 600GR', volume: 516.48, lote: 'AAABR30101', validade: '24/05/2025' },
+    { codigo: '00030202', descricao: 'FILME BISC. ROSQUINHA COCO EMEGE 600GR', volume: 453.6, lote: 'AAABR30101', validade: '24/05/2025' },
+    { codigo: '00030202', descricao: 'FILME BISC. ROSQUINHA COCO EMEGE 600GR', volume: 857.92, lote: 'AAACS60101', validade: '26/06/2025' },
+    { codigo: '00030202', descricao: 'FILME BISC. ROSQUINHA COCO EMEGE 600GR', volume: 296.5, lote: 'AAACS60101', validade: '26/06/2025' },
+    { codigo: '00030202', descricao: 'FILME BISC. ROSQUINHA COCO EMEGE 600GR', volume: 542.02, lote: 'AAACS60101', validade: '26/06/2025' },
+    { codigo: '00030202', descricao: 'FILME BISC. ROSQUINHA COCO EMEGE 600GR', volume: 555.88, lote: 'AAACS60101', validade: '26/06/2025' },
+    { codigo: '00030202', descricao: 'FILME BISC. ROSQUINHA COCO EMEGE 600GR', volume: 535.87, lote: 'AAACS60101', validade: '26/06/2025' },
+    { codigo: '00030202', descricao: 'FILME BISC. ROSQUINHA COCO EMEGE 600GR', volume: 560.43, lote: 'AAACS60101', validade: '26/06/2025' },
+    
+    { codigo: '00030439', descricao: 'FILME BISC. ROSQUINHA LEITE EMEGE 300GR', volume: 590.82, lote: 'AAAGBU0101', validade: '17/04/2026' },
+    { codigo: '00030439', descricao: 'FILME BISC. ROSQUINHA LEITE EMEGE 300GR', volume: 542.6, lote: 'AAAGBU0101', validade: '17/04/2026' },
+    
+    { codigo: '00030440', descricao: 'FILME BISC. ROSQUINHA LEITE EMEGE 600GR', volume: 514.73, lote: 'AAAGCQ0101', validade: '30/10/2025' },
+    { codigo: '00030440', descricao: 'FILME BISC. ROSQUINHA LEITE EMEGE 600GR', volume: 484.87, lote: 'AAAGCQ0101', validade: '30/10/2025' },
+    
+    { codigo: '00030510', descricao: 'FILME MAC PENNE C/ OVOS EMEGE 500G', volume: 544.9, lote: 'AA97790101', validade: '29/08/2025' },
+    { codigo: '00030510', descricao: 'FILME MAC PENNE C/ OVOS EMEGE 500G', volume: 553.4, lote: 'AA97790101', validade: '29/08/2025' },
+    { codigo: '00030510', descricao: 'FILME MAC PENNE C/ OVOS EMEGE 500G', volume: 523.1, lote: 'AAABOP0101', validade: '16/11/2025' },
+    
+    { codigo: '00030710', descricao: 'FILME MAC PARAFUSO C/ OVOS EMEGE 500G', volume: 357.3, lote: 'AA98650101', validade: '06/09/2025' },
+    { codigo: '00030710', descricao: 'FILME MAC PARAFUSO C/ OVOS EMEGE 500G', volume: 544.65, lote: 'AAA0360101', validade: '17/11/2025' },
+    { codigo: '00030710', descricao: 'FILME MAC PARAFUSO C/ OVOS EMEGE 500G', volume: 498.7, lote: 'AAA0360101', validade: '17/11/2025' },
+    { codigo: '00030710', descricao: 'FILME MAC PARAFUSO C/ OVOS EMEGE 500G', volume: 547.9, lote: 'AAACSD0101', validade: '23/12/2025' },
+    { codigo: '00030710', descricao: 'FILME MAC PARAFUSO C/ OVOS EMEGE 500G', volume: 432.6, lote: 'AAACSD0101', validade: '24/12/2025' },
+    
+    { codigo: '00030709', descricao: 'FILME MAC AVE MARIA C/ OVOS EMEGE 500G', volume: 505.16, lote: 'AAA2430101', validade: '13/09/2025' },
+    
+    { codigo: '00030212', descricao: 'FILME MAC ESPAGUETE OVOS EMEGE 500G', volume: 538.3, lote: 'AA97790101', validade: '29/08/2025' },
+    { codigo: '00030212', descricao: 'FILME MAC ESPAGUETE OVOS EMEGE 500G', volume: 558.97, lote: 'AA97790101', validade: '29/08/2025' },
+    
+    { codigo: '00030218', descricao: 'FILME MAC PADRE NOSSO SEMOLA EMEGE 500G', volume: 608.3, lote: 'AA90740101', validade: '10/08/2025' },
+    { codigo: '00030218', descricao: 'FILME MAC PADRE NOSSO SEMOLA EMEGE 500G', volume: 555.4, lote: 'AAACS50101', validade: '25/12/2025' },
+    { codigo: '00030218', descricao: 'FILME MAC PADRE NOSSO SEMOLA EMEGE 500G', volume: 549.15, lote: 'AAABOG0101', validade: '16/11/2025' },
+    
+    { codigo: '00030530', descricao: 'FILME MAC PARAFUSO TRICOLORI EMEGE 500GR', volume: 547.55, lote: 'AAACT80101', validade: '25/12/2025' },
+    { codigo: '00030530', descricao: 'FILME MAC PARAFUSO TRICOLORI EMEGE 500GR', volume: 456.8, lote: 'AAACT80101', validade: '25/12/2025' },
+    { codigo: '00030530', descricao: 'FILME MAC PARAFUSO TRICOLORI EMEGE 500GR', volume: 543.15, lote: 'AAABNT0101', validade: '16/11/2025' },
+    
+    { codigo: '00030211', descricao: 'FILME MAC PENNE SEMOLA EMEGE 500G', volume: 413.25, lote: 'AAACOZ0101', validade: '18/12/2025' },
+    { codigo: '00030211', descricao: 'FILME MAC PENNE SEMOLA EMEGE 500G', volume: 558.6, lote: 'AAACOZ0101', validade: '18/12/2025' },
+    { codigo: '00030211', descricao: 'FILME MAC PENNE SEMOLA EMEGE 500G', volume: 538.65, lote: 'AAACOZ0101', validade: '18/12/2025' },
+    { codigo: '00030211', descricao: 'FILME MAC PENNE SEMOLA EMEGE 500G', volume: 509.6, lote: 'AAABM20101', validade: '15/11/2025' },
+    
+    { codigo: '00030559', descricao: 'FILME MAC SEMOLA EMEGE 500G FURADINHO', volume: 517.41, lote: 'AAA1280101', validade: '08/06/2025' },
+    { codigo: '00030559', descricao: 'FILME MAC SEMOLA EMEGE 500G FURADINHO', volume: 487.46, lote: 'AAA1280101', validade: '08/06/2025' },
+    
+    { codigo: '00030226', descricao: 'FILME MAC PARAFUSO SEMOLA EMEGE 500G', volume: 547.55, lote: 'AAACS70101', validade: '23/12/2025' },
+    { codigo: '00030226', descricao: 'FILME MAC PARAFUSO SEMOLA EMEGE 500G', volume: 538.83, lote: 'AAACS70101', validade: '23/12/2025' },
+    { codigo: '00030226', descricao: 'FILME MAC PARAFUSO SEMOLA EMEGE 500G', volume: 534, lote: 'AAA1270101', validade: '20/11/2025' },
+    
+    { codigo: '00030225', descricao: 'FILME MAC AVE MARIA SEMOLA EMEGE 500G', volume: 544.76, lote: 'AAABQ70101', validade: '20/11/2025' },
+    { codigo: '00030225', descricao: 'FILME MAC AVE MARIA SEMOLA EMEGE 500G', volume: 550.12, lote: 'AAABQ70101', validade: '20/11/2025' },
+    
+    { codigo: '00030557', descricao: 'FILME MAC SEMOLA EMEGE 1K ESPAGUETE', volume: 564.54, lote: 'AAABXJ0101', validade: '24/11/2025' },
+    
+    { codigo: '00030783', descricao: 'FILME MAC PADRE NOSSO SEMOLA REIMASSAS 500G', volume: 417.18, lote: 'AAAILC0101', validade: '23/06/2025' },
+    
+    { codigo: '00030784', descricao: 'FILME MAC ESPAGUETTE SEMOLA REIMASSAS 500G', volume: 557.39, lote: 'AAAILA0101', validade: '23/06/2025' },
+    
+    { codigo: '00030448', descricao: 'FILME MAC ARAGUAIA PARAFUSO SEMOLA 500G', volume: 610.95, lote: 'AAAGH20101', validade: '23/04/2026' },
+    
+    { codigo: '00030438', descricao: 'FILME MAC SEMOLA ARAGUAIA 500G PADRE NOSSO', volume: 525.2, lote: 'AAA1300101', validade: '08/06/2025' },
+    
+    { codigo: '00030712', descricao: 'FILME MAC ESPAGUETE SEMOLA ARAGUAIA 500G', volume: 540.92, lote: 'AAAFT30101', validade: '03/04/2026' },
+    { codigo: '00030712', descricao: 'FILME MAC ESPAGUETE SEMOLA ARAGUAIA 500G', volume: 540.62, lote: 'AAAFT90101', validade: '13/03/2026' },
+    { codigo: '00030712', descricao: 'FILME MAC ESPAGUETE SEMOLA ARAGUAIA 500G', volume: 575.44, lote: 'AAAFT90101', validade: '13/03/2026' },
+    { codigo: '00030712', descricao: 'FILME MAC ESPAGUETE SEMOLA ARAGUAIA 500G', volume: 544.54, lote: 'AAAFT90101', validade: '13/03/2026' },
+    { codigo: '00030712', descricao: 'FILME MAC ESPAGUETE SEMOLA ARAGUAIA 500G', volume: 540.45, lote: 'AAAFT90101', validade: '13/03/2026' },
+    { codigo: '00030712', descricao: 'FILME MAC ESPAGUETE SEMOLA ARAGUAIA 500G', volume: 379.52, lote: 'AAAFT90101', validade: '13/03/2026' },
+    { codigo: '00030712', descricao: 'FILME MAC ESPAGUETE SEMOLA ARAGUAIA 500G', volume: 308.94, lote: 'AAACP00101', validade: '22/12/2025' },
+    { codigo: '00030712', descricao: 'FILME MAC ESPAGUETE SEMOLA ARAGUAIA 500G', volume: 552.85, lote: 'AAACP00101', validade: '22/12/2025' },
+    
+    { codigo: '00030269', descricao: 'FILME MAC ESPAGUETE SEMOLA ARAG 400G', volume: 549.74, lote: 'AAAJE000101', validade: '18/07/2026' },
+    { codigo: '00030269', descricao: 'FILME MAC ESPAGUETE SEMOLA ARAG 400G', volume: 549.04, lote: 'AAAJE000101', validade: '18/07/2026' },
+    { codigo: '00030269', descricao: 'FILME MAC ESPAGUETE SEMOLA ARAG 400G', volume: 545.82, lote: 'AAAJE000101', validade: '18/07/2026' },
+    
+    { codigo: '00030502', descricao: 'FILME PRE MIST EMEGE CHOCOLATE 400G', volume: 1001.52, lote: '627104', validade: '11/09/2026' },
+    { codigo: '00030502', descricao: 'FILME PRE MIST EMEGE CHOCOLATE 400G', volume: 1014.02, lote: '627104', validade: '' },
+    
+    { codigo: '00030674', descricao: 'FILM FARINHA TRIGOB PASTEL E MASSA FRESCA 5KG', volume: 408.54, lote: '77868', validade: '17/07/2026' },
+    
+    { codigo: '00030536', descricao: 'FILME PRE MIST EMEGE COCO 400G', volume: 559.68, lote: 'AAABNX0101', validade: '16/11/2025' },
+    
+    { codigo: '00030537', descricao: 'FILME PRE MIST EMEGE LARANJA 400G', volume: 629.35, lote: '593654', validade: '26/04/2026' },
+    { codigo: '00030537', descricao: 'FILME PRE MIST EMEGE LARANJA 400G', volume: 418.21, lote: 'AAABM10101', validade: '15/11/2025' },
+    
+    { codigo: '00030539', descricao: 'FILME PRE MIST EMEGE FUBA 400G', volume: 574.19, lote: '595758', validade: '30/04/2026' },
+    { codigo: '00030539', descricao: 'FILME PRE MIST EMEGE FUBA 400G', volume: 459.86, lote: 'AAAC470101', validade: '29/11/2025' },
+    
+    { codigo: '00030538', descricao: 'FILME PRE MIST EMEGE FESTA 400G', volume: 513.15, lote: '595664', validade: '29/04/2026' },
+    { codigo: '00030538', descricao: 'FILME PRE MIST EMEGE FESTA 400G', volume: 477.76, lote: '595664', validade: '29/04/2026' },
+    { codigo: '00030538', descricao: 'FILME PRE MIST EMEGE FESTA 400G', volume: 398.12, lote: 'AAABOH0101', validade: '17/11/2026' },
+    
+    { codigo: '00560071', descricao: 'LECITINA', volume: 600, lote: 'T-392', validade: '05/02/2027' },
+    
+    { codigo: '00460001', descricao: 'CREME DE MILHO', volume: 1000, lote: '82504131', validade: '25/12/2025' },
+    { codigo: '00460001', descricao: 'CREME DE MILHO', volume: 1000, lote: '82504131', validade: '25/12/2025' },
+    { codigo: '00460001', descricao: 'CREME DE MILHO', volume: 1000, lote: '82504131', validade: '25/12/2025' },
+    
+    { codigo: '00560206', descricao: 'SAL IODADO KG', volume: 1000, lote: '6123225', validade: '01/08/2027' },
+    
+    { codigo: '00440001', descricao: 'OVO DESIDRATADO INDUSTRIAL', volume: 360, lote: '18092025', validade: '18/09/2026' },
+    
+    { codigo: '00420002', descricao: 'COCO RALADO INDUSTRIAL', volume: 300, lote: '198', validade: '17/07/2026' },
+    
+    { codigo: '00460017', descricao: 'AROMA CENOURA', volume: 200, lote: '25090925', validade: '03/10/2026' },
+    
+    { codigo: '00460011', descricao: 'AROMA CHOCOLATE ALPINO', volume: 300, lote: '784007', validade: '16/06/2026' },
+    { codigo: '00460011', descricao: 'AROMA CHOCOLATE ALPINO', volume: 300, lote: '793971', validade: '02/09/2026' },
+    
+    { codigo: '00030696', descricao: 'AROMA COCO LIQUIDO', volume: 280, lote: '25080635', validade: '12/08/2026' },
+    
+    { codigo: '00440007', descricao: 'CORANTE MIX ESPINAFRE', volume: 60, lote: '8385', validade: '24/11/2025' },
+    
+    { codigo: '00440005', descricao: 'CORANTE MIX TOMATE', volume: 40, lote: '8446', validade: '24/12/2025' },
+    
+    { codigo: '00560081', descricao: 'CACAU ALCALINO', volume: 700, lote: '468125', validade: '05/02/2027' },
+    { codigo: '00560081', descricao: 'CACAU ALCALINO', volume: 600, lote: '468125', validade: '05/02/2027' },
+    
+    { codigo: '00030021', descricao: 'COLA ALTA ADESAO MELT 2022', volume: 500, lote: '02000B222', validade: '13/08/2027' },
+    
+    { codigo: '00030690', descricao: 'EMB FAR TRIGO EMEGE 1KG', volume: 258300, lote: '109/25', validade: '30/09/2027' },
+    
+    { codigo: '00030025', descricao: 'EMB FAR TRIGO DONA BEL 1KG', volume: 84000, lote: '108/25', validade: '31/08/2027' },
+    
+    { codigo: '00030148', descricao: 'EMB PAP FAR BSB 1KG', volume: 88200, lote: '109/25', validade: '30/09/2027' },
+    
+    { codigo: '00030018', descricao: 'EMB FAR TRIGO TIO JORGE 1KG', volume: 126000, lote: '111/24', validade: '30/11/2026' },
+    { codigo: '00030018', descricao: 'EMB FAR TRIGO TIO JORGE 1KG', volume: 210000, lote: '108/25', validade: '31/08/2027' },
+    
+    { codigo: '00030191', descricao: 'EMB PAP FAR TRIGOMASSA 1KG', volume: 123900, lote: '108/25', validade: '31/08/2027' },
+    
+    { codigo: '00030691', descricao: 'EMB FAR TRIGO ARAGUAIA 1KG', volume: 420000, lote: '209/25', validade: '30/09/2027' },
+    
+    { codigo: '00030694', descricao: 'AROMA COCO', volume: 100, lote: '24100361', validade: '10/10/2025' },
+    { codigo: '00030694', descricao: 'AROMA COCO', volume: 640, lote: '24110603', validade: '20/11/2025' },
+    { codigo: '00030694', descricao: 'AROMA COCO', volume: 60, lote: '24110603', validade: '20/11/2025' },
+    { codigo: '00030694', descricao: 'AROMA COCO', volume: 540, lote: '24110604', validade: '21/11/2025' },
+    { codigo: '00030694', descricao: 'AROMA COCO', volume: 580, lote: '24110604', validade: '21/11/2025' },
+    { codigo: '00030694', descricao: 'AROMA COCO', volume: 20, lote: '24101861', validade: '05/11/2025' },
+    
+    { codigo: '00560204', descricao: 'ACUCAR INVERTIDO', volume: 2080, lote: '230650', validade: '20/11/2025' },
+    { codigo: '00560204', descricao: 'ACUCAR INVERTIDO', volume: 1300, lote: '41992025', validade: '20/11/2025' },
+    { codigo: '00560204', descricao: 'ACUCAR INVERTIDO', volume: 260, lote: '41992025', validade: '20/11/2025' },
+    { codigo: '00560204', descricao: 'ACUCAR INVERTIDO', volume: 520, lote: '41992025', validade: '20/11/2025' },
+];
 
         // Variáveis globais para os gráficos
         let validityChart = null;
