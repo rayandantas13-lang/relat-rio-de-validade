@@ -466,7 +466,10 @@
                     status = 'Sem Data';
                 }
                 
-                row.classList.add(statusClass);
+                // Apenas adicionar a classe se não for vazia
+                if (statusClass) {
+                    row.classList.add(statusClass);
+                }
                 
                 row.innerHTML = `
                     <td>${product.codigo}</td>
