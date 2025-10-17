@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Produtos em Validade</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        header h1 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            text-align: center;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            border-bottom: 2px solid var(--light-color);
+            padding-bottom: 10px;
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat-card h3 {
+            color: var(--dark-color);
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+        
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            min-width: 200px;
+        }
+        
+        .filter-group label {
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        .filter-group select, .filter-group input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .expiring-soon {
+            background-color: #fff9e6;
+        }
+        
+        .expired {
+            background-color: #ffe6e6;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .filters {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Dashboard de Produtos em Validade</h1>
+            <p>Estoque Produtivo 2025 - Análise de Validades e Volumes</p>
+        </header>
+        
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>Total de Produtos</h3>
+                <div class="stat-value" id="total-products">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Volume Total</h3>
+                <div class="stat-value" id="total-volume">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Produtos Únicos</h3>
+                <div class="stat-value" id="unique-products">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Vencimento Próximo (30 dias)</h3>
+                <div class="stat-value" id="expiring-soon">0</div>
+            </div>
+        </div>
+        
+        <div class="filters">
+            <div class="filter-group">
+                <label for="product-filter">Filtrar por Código:</label>
+                <select id="product-filter">
+                    <option value="all">Todos os Produtos</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="date-filter">Filtrar por Validade:</label>
+                <select id="date-filter">
+                    <option value="all">Todas as Datas</option>
+                    <option value="30">Próximos 30 dias</option>
+                    <option value="90">Próximos 90 dias</option>
+                    <option value="180">Próximos 180 dias</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="dashboard-grid">
+            <div class="card">
+                <h2>Distribuição por Validade</h2>
+                <div class="chart-container">
+                    <canvas id="validityChart"></canvas>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Top 10 Produtos por Volume</h2>
+                <div class="chart-container">
+                    <canvas id="volumeChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>Detalhes dos Produtos</h2>
+            <div class="table-container">
+                <table id="products-table">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Quantidade</th>
+                            <th>Volume</th>
+                            <th>Lote</th>
+                            <th>Validade</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- Os dados serão preenchidos via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Dashboard gerado com base nos dados do arquivo "PRODUTO EM VALIDADE ESTOQUE PRODUTIVO 2025"</p>
+        </footer>
+    </div>
+
+    <script>
+        // Dados extraídos do arquivo Excel
+        const productsData = [
+            { codigo: '00030558', qtd: '', volume: 776.79, lote: 'AAA9330101', validade: '2025-09-26 00:00:00' },
+            { codigo: '00030558', qtd: '', volume: 713.27, lote: 'AAA9330101', validade: '2025-09-26 00:00:00' },
+            { codigo: '00030558', qtd: '', volume: 703.5, lote: 'AAA9330101', validade: '2025-09-26 00:00:00' },
+            { codigo: '00030558', qtd: '', volume: 737.52, lote: 'AAA9330101', validade: '2025-09-26 00:00:00' },
+            { codigo: '00030558', qtd: '', volume: 754.71, lote: 'AAA9330101', validade: '2025-09-26 00:00:00' },
+            { codigo: '00030558', qtd: '', volume: 621.47, lote: 'AAA9330101', validade: '2025-09-26 00:00:00' },
+            { codigo: '00030558', qtd: '', volume: 539.74, lote: 'AAA9330101', validade: '2025-09-26 00:00:00' },
+            { codigo: '00030558', qtd: '', volume: 531.49, lote: 'AAA9330101', validade: '2025-09-26 00:00:00' },
+            { codigo: '00030558', qtd: '', volume: 548.64, lote: 'AAA9330101', validade: '2025-09-26 00:00:00' },
+            { codigo: '00030558', qtd: '', volume: 540.73, lote: 'AAA9330101', validade: '2025-09-26 00:00:00' },
+            { codigo: '00030419', qtd: '', volume: 530.89, lote: 'AAACSE0101', validade: '2025-06-26 00:00:00' },
+            { codigo: '00030419', qtd: '', volume: 530.89, lote: 'AAACSE0101', validade: '2025-06-27 00:00:00' },
+            { codigo: '00030419', qtd: '', volume: 546.95, lote: 'AAACSE0101', validade: '2025-06-27 00:00:00' },
+            { codigo: '00030419', qtd: '', volume: 548.09, lote: 'AAABOT0101', validade: '2025-05-21 00:00:00' },
+            { codigo: '00030202', qtd: '', volume: 516.48, lote: 'AAABR30101', validade: '2025-05-24 00:00:00' },
+            { codigo: '00030202', qtd: '', volume: 453.6, lote: 'AAABR30101', validade: '2025-05-24 00:00:00' },
+            { codigo: '00030202', qtd: '', volume: 857.92, lote: 'AAACS60101', validade: '2025-06-26 00:00:00' },
+            { codigo: '00030202', qtd: '', volume: 296.5, lote: 'AAACS60101', validade: '2025-06-26 00:00:00' },
+            { codigo: '00030202', qtd: '', volume: 542.02, lote: 'AAACS60101', validade: '2025-06-26 00:00:00' },
+            { codigo: '00030202', qtd: '', volume: 555.88, lote: 'AAACS60101', validade: '2025-06-26 00:00:00' },
+            { codigo: '00030202', qtd: '', volume: 535.87, lote: 'AAACS60101', validade: '2025-06-26 00:00:00' },
+            { codigo: '00030202', qtd: '', volume: 560.43, lote: 'AAACS60101', validade: '2025-06-26 00:00:00' },
+            { codigo: '00030439', qtd: '', volume: 590.82, lote: 'AAAGBU0101', validade: '2026-04-17 00:00:00' },
+            { codigo: '00030439', qtd: '', volume: 542.6, lote: 'AAAGBU0101', validade: '2026-04-17 00:00:00' },
+            { codigo: '00030440', qtd: '', volume: 514.73, lote: 'AAAGCQ0101', validade: '2025-10-30 00:00:00' },
+            { codigo: '00030440', qtd: '', volume: 484.87, lote: 'AAAGCQ0101', validade: '2025-10-30 00:00:00' },
+            { codigo: '00030510', qtd: '', volume: 544.9, lote: 'AA97790101', validade: '2025-08-29 00:00:00' },
+            { codigo: '00030510', qtd: '', volume: 553.4, lote: 'AA97790101', validade: '2025-08-29 00:00:00' },
+            { codigo: '00030510', qtd: '', volume: 523.1, lote: 'AAABOP0101', validade: '2025-11-16 00:00:00' },
+            { codigo: '00030710', qtd: '', volume: 357.3, lote: 'AA98650101', validade: '2025-09-06 00:00:00' },
+            { codigo: '00030710', qtd: '', volume: 544.65, lote: 'AAA0360101', validade: '2025-11-17 00:00:00' },
+            { codigo: '00030710', qtd: '', volume: 498.7, lote: 'AAA0360101', validade: '2025-11-17 00:00:00' },
+            { codigo: '00030710', qtd: '', volume: 547.9, lote: 'AAACSD0101', validade: '2025-12-23 00:00:00' },
+            { codigo: '00030710', qtd: '', volume: 432.6, lote: 'AAACSD0101', validade: '2025-12-24 00:00:00' },
+            { codigo: '00030709', qtd: '', volume: 505.16, lote: 'AAA2430101', validade: '2025-09-13 00:00:00' },
+            { codigo: '00030212', qtd: '', volume: 538.3, lote: 'AA97790101', validade: '2025-08-29 00:00:00' },
+            { codigo: '00030212', qtd: '', volume: 558.97, lote: 'AA97790101', validade: '2025-08-29 00:00:00' },
+            { codigo: '00030218', qtd: '', volume: 608.3, lote: 'AA90740101', validade: '2025-08-10 00:00:00' },
+            { codigo: '00030218', qtd: '', volume: 555.4, lote: 'AAACS50101', validade: '2025-12-25 00:00:00' },
+            { codigo: '00030218', qtd: '', volume: 549.15, lote: 'AAABOG0101', validade: '2025-11-16 00:00:00' },
+            { codigo: '00030530', qtd: '', volume: 547.55, lote: 'AAACT80101', validade: '2025-12-25 00:00:00' },
+            { codigo: '00030530', qtd: '', volume: 456.8, lote: 'AAACT80101', validade: '2025-12-25 00:00:00' },
+            { codigo: '00030530', qtd: '', volume: 543.15, lote: 'AAABNT0101', validade: '2025-11-16 00:00:00' },
+            { codigo: '00030211', qtd: '', volume: 413.25, lote: 'AAACOZ0101', validade: '2025-12-18 00:00:00' },
+            { codigo: '00030211', qtd: '', volume: 558.6, lote: 'AAACOZ0101', validade: '2025-12-18 00:00:00' },
+            { codigo: '00030211', qtd: '', volume: 538.65, lote: 'AAACOZ0101', validade: '2025-12-18 00:00:00' },
+            { codigo: '00030211', qtd: '', volume: 509.6, lote: 'AAABM20101', validade: '2025-11-15 00:00:00' },
+            { codigo: '00030559', qtd: '', volume: 517.41, lote: 'AAA1280101', validade: '2025-06-08 00:00:00' },
+            { codigo: '00030559', qtd: '', volume: 487.46, lote: 'AAA1280101', validade: '2025-06-08 00:00:00' },
+            { codigo: '00030226', qtd: '', volume: 547.55, lote: 'AAACS70101', validade: '2025-12-23 00:00:00' },
+            { codigo: '00030226', qtd: '', volume: 538.83, lote: 'AAACS70101', validade: '2025-12-23 00:00:00' },
+            { codigo: '00030226', qtd: '', volume: 534, lote: 'AAA1270101', validade: '2025-11-20 00:00:00' },
+            { codigo: '00030225', qtd: '', volume: 544.76, lote: 'AAABQ70101', validade: '2025-11-20 00:00:00' },
+            { codigo: '00030225', qtd: '', volume: 550.12, lote: 'AAABQ70101', validade: '2025-11-20 00:00:00' },
+            { codigo: '00030557', qtd: '', volume: 564.54, lote: 'AAABXJ0101', validade: '2025-11-24 00:00:00' },
+            { codigo: '00030783', qtd: '', volume: 417.18, lote: 'AAAILC0101', validade: '2025-06-23 00:00:00' },
+            { codigo: '00030784', qtd: '', volume: 557.39, lote: 'AAAILA0101', validade: '2025-06-23 00:00:00' },
+            { codigo: '00030448', qtd: '', volume: 610.95, lote: 'AAAGH20101', validade: '2026-04-23 00:00:00' },
+            { codigo: '00030438', qtd: '', volume: 525.2, lote: 'AAA1300101', validade: '2025-06-08 00:00:00' },
+            { codigo: '00030712', qtd: '', volume: 540.92, lote: 'AAAFT30101', validade: '2026-04-03 00:00:00' },
+            { codigo: '00030712', qtd: '', volume: 540.62, lote: 'AAAFT90101', validade: '2026-03-13 00:00:00' },
+            { codigo: '00030712', qtd: '', volume: 575.44, lote: 'AAAFT90101', validade: '2026-03-13 00:00:00' },
+            { codigo: '00030712', qtd: '', volume: 544.54, lote: 'AAAFT90101', validade: '2026-03-13 00:00:00' },
+            { codigo: '00030712', qtd: '', volume: 540.45, lote: 'AAAFT90101', validade: '2026-03-13 00:00:00' },
+            { codigo: '00030712', qtd: '', volume: 379.52, lote: 'AAAFT90101', validade: '2026-03-13 00:00:00' },
+            { codigo: '00030712', qtd: '', volume: 308.94, lote: 'AAACP00101', validade: '2025-12-22 00:00:00' },
+            { codigo: '00030712', qtd: '', volume: 552.85, lote: 'AAACP00101', validade: '2025-12-22 00:00:00' },
+            { codigo: '00030269', qtd: '', volume: 549.74, lote: 'AAAJE000101', validade: '2026-07-18 00:00:00' },
+            { codigo: '00030269', qtd: '', volume: 549.04, lote: 'AAAJE000101', validade: '2026-07-18 00:00:00' },
+            { codigo: '00030269', qtd: '', volume: 545.82, lote: 'AAAJE000101', validade: '2026-07-18 00:00:00' },
+            { codigo: '00030269', qtd: '', volume: 549.42, lote: 'AAAJE000101', validade: '2026-07-18 00:00:00' },
+            { codigo: '00030502', qtd: '', volume: 1001.52, lote: '627104', validade: '2026-09-11 00:00:00' },
+            { codigo: '00030502', qtd: '', volume: 1014.02, lote: '627104', validade: '' },
+            { codigo: '00030674', qtd: '', volume: 408.54, lote: '77868', validade: '2026-07-17 00:00:00' },
+            { codigo: '00030536', qtd: '', volume: 559.68, lote: 'AAABNX0101', validade: '2025-11-16 00:00:00' },
+            { codigo: '0030537', qtd: '', volume: 629.35, lote: '593654', validade: '2026-04-26 00:00:00' },
+            { codigo: '0030537', qtd: '', volume: 418.21, lote: 'AAABM10101', validade: '2025-11-15 00:00:00' },
+            { codigo: '00030539', qtd: '', volume: 574.19, lote: '595758', validade: '2026-04-30 00:00:00' },
+            { codigo: '00030539', qtd: '', volume: 459.86, lote: 'AAAC470101', validade: '2025-11-29 00:00:00' },
+            { codigo: '00030538', qtd: '', volume: 513.15, lote: '595664', validade: '2026-04-29 00:00:00' },
+            { codigo: '00030538', qtd: '', volume: 477.76, lote: '595664', validade: '2026-04-29 00:00:00' },
+            { codigo: '00030538', qtd: '', volume: 398.12, lote: 'AAABOH0101', validade: '2026-11-17 00:00:00' },
+            { codigo: '00560071', qtd: '', volume: 600, lote: 'T-392', validade: '2027-02-05 00:00:00' },
+            { codigo: '00460001', qtd: '', volume: 1000, lote: '82504131', validade: '2025-12-25 00:00:00' },
+            { codigo: '00460001', qtd: '', volume: 1000, lote: '82504131', validade: '2025-12-25 00:00:00' },
+            { codigo: '00460001', qtd: '', volume: 1000, lote: '82504131', validade: '2025-12-25 00:00:00' },
+            { codigo: '00560206', qtd: '', volume: 1000, lote: '6123225', validade: '2027-08-01 00:00:00' },
+            { codigo: '00440001', qtd: '', volume: 360, lote: '18092025', validade: '2026-09-18 00:00:00' },
+            { codigo: '00420002', qtd: '', volume: 300, lote: '198', validade: '2026-07-17 00:00:00' },
+            { codigo: '00460017', qtd: '', volume: 200, lote: '25090925', validade: '2026-10-03 00:00:00' },
+            { codigo: '00460011', qtd: '', volume: 300, lote: '784007', validade: '2026-06-16 00:00:00' },
+            { codigo: '00460011', qtd: '', volume: 300, lote: '793971', validade: '2026-09-02 00:00:00' },
+            { codigo: '00030696', qtd: '', volume: 280, lote: '25080635', validade: '2026-08-12 00:00:00' },
+            { codigo: '00440007', qtd: '', volume: 60, lote: '8385', validade: '2025-11-24 00:00:00' },
+            { codigo: '00440005', qtd: '', volume: 40, lote: '8446', validade: '2025-12-24 00:00:00' },
+            { codigo: '00560081', qtd: '', volume: 700, lote: '468125', validade: '2027-02-05 00:00:00' },
+            { codigo: '00560081', qtd: '', volume: 600, lote: '468125', validade: '2027-02-05 00:00:00' },
+            { codigo: '00030021', qtd: '', volume: 500, lote: '02000B222', validade: '2027-08-13 00:00:00' },
+            { codigo: '00030690', qtd: '', volume: 258300, lote: '109/25', validade: '2027-09-30 00:00:00' },
+            { codigo: '00030025', qtd: '', volume: 84000, lote: '108/25', validade: '2027-08-31 00:00:00' },
+            { codigo: '00030148', qtd: '', volume: 88200, lote: '109/25', validade: '2027-09-30 00:00:00' },
+            { codigo: '00030018', qtd: '', volume: 126000, lote: '111/24', validade: '2026-11-30 00:00:00' },
+            { codigo: '00030018', qtd: '', volume: 210000, lote: '108/25', validade: '2027-08-31 00:00:00' },
+            { codigo: '00030191', qtd: '', volume: 123900, lote: '108/25', validade: '2027-08-31 00:00:00' },
+            { codigo: '00030691', qtd: '', volume: 512400, lote: '209/25', validade: '2027-09-30 00:00:00' },
+            { codigo: '00030694', qtd: '', volume: 100, lote: '24100361', validade: '2025-10-10 00:00:00' },
+            { codigo: '00030694', qtd: '', volume: 640, lote: '24110603', validade: '2025-11-20 00:00:00' },
+            { codigo: '00030694', qtd: '', volume: 60, lote: '24110603', validade: '2025-11-20 00:00:00' },
+            { codigo: '00030694', qtd: '', volume: 540, lote: '24110604', validade: '2025-11-21 00:00:00' },
+            { codigo: '00030694', qtd: '', volume: 580, lote: '24110604', validade: '2025-11-21 00:00:00' },
+            { codigo: '00030694', qtd: '', volume: 20, lote: '24101861', validade: '2025-11-05 00:00:00' },
+            { codigo: '00560204', qtd: '', volume: 2080, lote: '230650', validade: '2025-11-20 00:00:00' },
+            { codigo: '00560204', qtd: '', volume: 1300, lote: '41992025', validade: '2025-11-20 00:00:00' },
+            { codigo: '00560204', qtd: '', volume: 260, lote: '41992025', validade: '2025-11-20 00:00:00' },
+            { codigo: '00560204', qtd: '', volume: 520, lote: '41992025', validade: '2025-11-20 00:00:00' }
+        ];
+
+        // Função para formatar números
+        function formatNumber(num) {
+            return new Intl.NumberFormat('pt-BR').format(num);
+        }
+
+        // Função para calcular estatísticas
+        function calculateStats() {
+            const totalProducts = productsData.length;
+            const totalVolume = productsData.reduce((sum, product) => sum + (product.volume || 0), 0);
+            const uniqueProducts = [...new Set(productsData.map(p => p.codigo))].length;
+            
+            // Calcular produtos com vencimento próximo (30 dias)
+            const today = new Date();
+            const thirtyDaysFromNow = new Date();
+            thirtyDaysFromNow.setDate(today.getDate() + 30);
+            
+            const expiringSoon = productsData.filter(product => {
+                if (!product.validade) return false;
+                const expiryDate = new Date(product.validade);
+                return expiryDate >= today && expiryDate <= thirtyDaysFromNow;
+            }).length;
+            
+            // Atualizar estatísticas na página
+            document.getElementById('total-products').textContent = formatNumber(totalProducts);
+            document.getElementById('total-volume').textContent = formatNumber(totalVolume.toFixed(2));
+            document.getElementById('unique-products').textContent = formatNumber(uniqueProducts);
+            document.getElementById('expiring-soon').textContent = formatNumber(expiringSoon);
+        }
+
+        // Função para preencher a tabela
+        function populateTable(filteredData = productsData) {
+            const tableBody = document.getElementById('table-body');
+            tableBody.innerHTML = '';
+            
+            filteredData.forEach(product => {
+                const row = document.createElement('tr');
+                
+                // Adicionar classe para produtos com vencimento próximo
+                if (product.validade) {
+                    const expiryDate = new Date(product.validade);
+                    const today = new Date();
+                    const thirtyDaysFromNow = new Date();
+                    thirtyDaysFromNow.setDate(today.getDate() + 30);
+                    
+                    if (expiryDate < today) {
+                        row.classList.add('expired');
+                    } else if (expiryDate <= thirtyDaysFromNow) {
+                        row.classList.add('expiring-soon');
+                    }
+                }
+                
+                row.innerHTML = `
+                    <td>${product.codigo}</td>
+                    <td>${product.qtd || '-'}</td>
+                    <td>${formatNumber(product.volume)}</td>
+                    <td>${product.lote}</td>
+                    <td>${product.validade ? new Date(product.validade).toLocaleDateString('pt-BR') : '-'}</td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Função para criar gráfico de distribuição por validade
+        function createValidityChart() {
+            const ctx = document.getElementById('validityChart').getContext('2d');
+            
+            // Agrupar produtos por mês/ano de validade
+            const validityGroups = {};
+            
+            productsData.forEach(product => {
+                if (product.validade) {
+                    const date = new Date(product.validade);
+                    const monthYear = `${date.getMonth() + 1}/${date.getFullYear()}`;
+                    
+                    if (!validityGroups[monthYear]) {
+                        validityGroups[monthYear] = 0;
+                    }
+                    
+                    validityGroups[monthYear] += product.volume || 0;
+                }
+            });
+            
+            // Ordenar por data
+            const sortedGroups = Object.entries(validityGroups)
+                .sort((a, b) => {
+                    const [monthA, yearA] = a[0].split('/').map(Number);
+                    const [monthB, yearB] = b[0].split('/').map(Number);
+                    
+                    if (yearA !== yearB) return yearA - yearB;
+                    return monthA - monthB;
+                });
+            
+            const labels = sortedGroups.map(group => group[0]);
+            const data = sortedGroups.map(group => group[1]);
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Volume por Validade',
+                        data: data,
+                        backgroundColor: 'rgba(52, 152, 219, 0.7)',
+                        borderColor: 'rgba(52, 152, 219, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Volume'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Mês/Ano de Validade'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Função para criar gráfico de top produtos por volume
+        function createVolumeChart() {
+            const ctx = document.getElementById('volumeChart').getContext('2d');
+            
+            // Agrupar produtos por código e somar volumes
+            const productVolumes = {};
+            
+            productsData.forEach(product => {
+                if (!productVolumes[product.codigo]) {
+                    productVolumes[product.codigo] = 0;
+                }
+                
+                productVolumes[product.codigo] += product.volume || 0;
+            });
+            
+            // Ordenar por volume e pegar os 10 primeiros
+            const sortedProducts = Object.entries(productVolumes)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+            
+            const labels = sortedProducts.map(product => product[0]);
+            const data = sortedProducts.map(product => product[1]);
+            
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Volume por Produto',
+                        data: data,
+                        backgroundColor: [
+                            'rgba(52, 152, 219, 0.7)',
+                            'rgba(46, 204, 113, 0.7)',
+                            'rgba(155, 89, 182, 0.7)',
+                            'rgba(241, 196, 15, 0.7)',
+                            'rgba(230, 126, 34, 0.7)',
+                            'rgba(231, 76, 60, 0.7)',
+                            'rgba(149, 165, 166, 0.7)',
+                            'rgba(52, 73, 94, 0.7)',
+                            'rgba(22, 160, 133, 0.7)',
+                            'rgba(39, 174, 96, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(52, 152, 219, 1)',
+                            'rgba(46, 204, 113, 1)',
+                            'rgba(155, 89, 182, 1)',
+                            'rgba(241, 196, 15, 1)',
+                            'rgba(230, 126, 34, 1)',
+                            'rgba(231, 76, 60, 1)',
+                            'rgba(149, 165, 166, 1)',
+                            'rgba(52, 73, 94, 1)',
+                            'rgba(22, 160, 133, 1)',
+                            'rgba(39, 174, 96, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const value = context.raw;
+                                    const total = data.reduce((a, b) => a + b, 0);
+                                    const percentage = ((value / total) * 100).toFixed(1);
+                                    return `${context.label}: ${formatNumber(value)} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Função para preencher filtros
+        function populateFilters() {
+            const productFilter = document.getElementById('product-filter');
+            const uniqueCodes = [...new Set(productsData.map(p => p.codigo))].sort();
+            
+            uniqueCodes.forEach(code => {
+                const option = document.createElement('option');
+                option.value = code;
+                option.textContent = code;
+                productFilter.appendChild(option);
+            });
+        }
+
+        // Função para aplicar filtros
+        function applyFilters() {
+            const productFilter = document.getElementById('product-filter').value;
+            const dateFilter = document.getElementById('date-filter').value;
+            
+            let filteredData = productsData;
+            
+            // Filtrar por produto
+            if (productFilter !== 'all') {
+                filteredData = filteredData.filter(product => product.codigo === productFilter);
+            }
+            
+            // Filtrar por data
+            if (dateFilter !== 'all') {
+                const today = new Date();
+                const targetDate = new Date();
+                targetDate.setDate(today.getDate() + parseInt(dateFilter));
+                
+                filteredData = filteredData.filter(product => {
+                    if (!product.validade) return false;
+                    const expiryDate = new Date(product.validade);
+                    return expiryDate >= today && expiryDate <= targetDate;
+                });
+            }
+            
+            populateTable(filteredData);
+        }
+
+        // Inicializar dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            calculateStats();
+            populateTable();
+            createValidityChart();
+            createVolumeChart();
+            populateFilters();
+            
+            // Adicionar event listeners aos filtros
+            document.getElementById('product-filter').addEventListener('change', applyFilters);
+            document.getElementById('date-filter').addEventListener('change', applyFilters);
+        });
+    </script>
+</body>
+</html>
